@@ -22,7 +22,7 @@ export default async function rateLimiter(
       duration: 1,
     });
 
-    await limiter.consume(request.ip);
+    await limiter.consume(request.ip as string | number);
 
     return next();
   } catch (err) {
