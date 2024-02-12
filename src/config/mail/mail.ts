@@ -14,7 +14,7 @@ export default {
   defaults: {
     from: {
       email: 'contato@mamuth.shop',
-      name: 'Virgilio Rosa',
+      name: 'Virgilio',
     },
   },
 } as IMailConfig;

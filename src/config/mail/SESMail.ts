@@ -3,6 +3,9 @@ import aws from 'aws-sdk';
 import HandlebarsMailTemplate from './HandlebarsMailTemplate';
 import mailConfig from '@config/mail/mail';
 
+// para tirar menssagem do bash do nodejs que indicada versão desatualizada.
+process.env.AWS_SDK_JS_SUPPRESS_MAINTENANCE_MODE_MESSAGE;
+
 interface IMailContact {
   name: string;
   email: string;
@@ -41,7 +44,7 @@ export default class SESMail {
 
     const { email, name } = mailConfig.defaults.from;
 
-    const message = await transporter.sendMail({
+    await transporter.sendMail({
       from: {
         name: from?.name || name,
         address: from?.email || email,
@@ -53,9 +56,5 @@ export default class SESMail {
       subject,
       html: await mailTemplate.parser(templateData),
     });
-
-    // console.log('Message sent: %s', message.messageId);
-    // Preview only available when sending through an Ethereal account
-    // console.log('Preview URL: %s', nodemailer.getTestMessageUrl(message));
   }
 }
